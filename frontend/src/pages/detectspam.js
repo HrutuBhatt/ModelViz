@@ -43,10 +43,10 @@ const DetectSpam = () => {
         onChange={(e) => setSelectedModel(e.target.value)}
       >
         <option value="svm">SVM</option>
-        <option value="svm">Naive Bayes</option>
-        <option value="svm">LSTM</option>
-        <option value="svm">Logistic Regression</option>
-        <option value="svm">BERT</option>
+        <option value="nb">Naive Bayes</option>
+        <option value="lstm">LSTM</option>
+        <option value="lr">Logistic Regression</option>
+        <option value="bert">BERT</option>
         {/* Add more models here if needed */}
       </select>
       <br />
