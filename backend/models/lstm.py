@@ -241,9 +241,25 @@ y_pred=(y_pred>0.5)
 # joblib.dump(model, 'lstm_joblib.pkl')
 #save model 
 model.save('lstm_model.keras')  
-from sklearn.metrics import accuracy_score,confusion_matrix
+from sklearn.metrics import accuracy_score,confusion_matrix, recall_score, precision_score, f1_score
 score=accuracy_score(y_test,y_pred)
-print("Test Score:{:.2f}%".format(score*100))
+precision=precision_score(y_test,y_pred)
+recall=recall_score(y_test,y_pred)
+f1=f1_score(y_test,y_pred)
+print("Accuracy Score:{:.2f}%".format(score*100))
+print("Precision Score:{:.2f}%".format(precision*100))
+print("Recall Score:{:.2f}%".format(recall*100))
+print("F1 Score:{:.2f}%".format(f1*100))
+
+metrics_lstm = {
+    "accuracy": score,
+    "precision": precision,
+    "recall": recall,
+    "f1" : f1
+}
+
+# Save dependencies
+joblib.dump(metrics_lstm, "metrics_lstm.pkl")
 
 cm=confusion_matrix(y_test,y_pred)
 fig=plt.figure(figsize=(12,8))

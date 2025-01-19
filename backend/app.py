@@ -2,12 +2,13 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 import re
-from models.svm import predict_spam as predict_svm
+# from models.svm import predict_spam as predict_svm
 from methods.lstm_method import classify_message
 # from models.naive_bayes import predict_spam as predict_naive_bayes
 import os
 from models.vectorizer import vectorize_text, preprocess_text
 from methods.nb_method import predict_spam_nb
+from methods.get_metrics import get_metrics
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
@@ -46,7 +47,14 @@ def predict():
 
     
 
-    # Call the appropriate prediction function based on the model
-    
+#get analysis of metrics of different models
+@app.route("/analytics", methods=["GET"])
+def analytics():
+    metrics = get_metrics()
+    print(metrics)
+    return jsonify(metrics)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)

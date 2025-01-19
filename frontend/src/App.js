@@ -4,6 +4,7 @@ import Navbar from './components/navbar';
 import Home from './pages/home';
 import About from './pages/about';
 import DetectSpam from './pages/detectspam';
+import Analytics from './pages/analytics';
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/detectspam" element={<DetectSpam />} />
+          <Route path="/analytics" element={<Analytics />} />
         </Routes>
       </Router>
     </>

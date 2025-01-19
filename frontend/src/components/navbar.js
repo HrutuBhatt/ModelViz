@@ -17,7 +17,7 @@ const Navbar = () => {
             <Link to="/detectspam" className="navbar-link">Detect Spam</Link>
           </li>
           <li>
-            <Link to="/contact" className="navbar-link">Contact</Link>
+            <Link to="/analytics" className="navbar-link">Analytics</Link>
           </li>
           <li>
             <Link to="/about" className="navbar-link">About</Link>

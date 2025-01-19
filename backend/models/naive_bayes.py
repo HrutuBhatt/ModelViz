@@ -52,11 +52,30 @@ X_train, X_test, y_train, y_test = train_test_split(data.Message, data.spam, tes
 from sklearn.feature_extraction.text import CountVectorizer
 v = CountVectorizer()
 X_train_count = v.fit_transform(X_train.values)
-joblib.dump(v, 'countVectorizer.pkl')
+# joblib.dump(v, 'countVectorizer.pkl')
 X_train_count.toarray()[:3]
 
 from sklearn.naive_bayes import MultinomialNB
 model = MultinomialNB()
 model.fit(X_train_count, y_train)
 
-joblib.dump(model, 'naivebayes_joblib.pkl')
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+X_test_count = v.transform(X_test)  # Transform test data using the fitted CountVectorizer
+y_pred = model.predict(X_test_count)  # Predict using the trained model
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+print("Accuracy: ", accuracy)
+print("Precision: ",precision)
+print("Accuracy: ",accuracy)
+print("F1 score: ",f1)
+metrics_nb = {
+    "accuracy": accuracy,
+    "precision": precision,
+    "recall": recall,
+    "f1" : f1
+}
+joblib.dump(metrics_nb, 'metrics_nb.pkl')
+print("done")
+# joblib.dump(model, 'naivebayes_joblib.pkl')

@@ -102,19 +102,32 @@ vectorizer = TfidfVectorizer()
 X_train_vec = vectorizer.fit_transform(X_train)
 X_test_vec = vectorizer.transform(X_test)
 
-joblib.dump(vectorizer, 'vectorizer.pkl')
+# joblib.dump(vectorizer, 'vectorizer.pkl')
 
 from sklearn.svm import SVC
 
 svm_model = SVC(kernel='linear')
 svm_model.fit(X_train_vec, y_train)
 
-# from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# y_pred = svm_model.predict(X_test_vec)
-# accuracy = accuracy_score(y_test, y_pred)
-# print("Accuracy:", accuracy)
+y_pred = svm_model.predict(X_test_vec)
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+print("Accuracy: ", accuracy)
+print("Precision: ",precision)
+print("F1 score: ",f1)
+metrics_svm = {
+    "accuracy": accuracy,
+    "precision": precision,
+    "recall": recall,
+    "f1" : f1
+}
 
+# Save dependencies
+joblib.dump(metrics_svm, "metrics_svm.pkl")
 # prompt: give confusion matrix for above
 
 from sklearn.metrics import confusion_matrix
@@ -135,26 +148,26 @@ import matplotlib.pyplot as plt
 
 # prompt: construct a function that takes the model and sentence and prints whether sentence is spam or not spam
 
-def predict_spam(model, sentence):
-    # Preprocess the input sentence
-    stemmer = PorterStemmer()
-    sentence = re.sub("[^a-zA-Z]", " ", sentence)
-    sentence = sentence.lower()
-    sentence = sentence.split()
-    sentence = [stemmer.stem(word) for word in sentence if word not in set(stopwords.words("english"))]
-    sentence = " ".join(sentence)
+# def predict_spam(model, sentence):
+#     # Preprocess the input sentence
+#     stemmer = PorterStemmer()
+#     sentence = re.sub("[^a-zA-Z]", " ", sentence)
+#     sentence = sentence.lower()
+#     sentence = sentence.split()
+#     sentence = [stemmer.stem(word) for word in sentence if word not in set(stopwords.words("english"))]
+#     sentence = " ".join(sentence)
 
-    # Vectorize the sentence
-    vectorized_sentence = vectorizer.transform([sentence])
+#     # Vectorize the sentence
+#     vectorized_sentence = vectorizer.transform([sentence])
 
-    # Make the prediction
-    prediction = model.predict(vectorized_sentence)[0]
+#     # Make the prediction
+#     prediction = model.predict(vectorized_sentence)[0]
 
-    # Print the result
-    if prediction == 1:
-        print("Spam")
-    else:
-        print("Not Spam")
+#     # Print the result
+#     if prediction == 1:
+#         print("Spam")
+#     else:
+#         print("Not Spam")
 
 # prompt: call predict_spam by giving it a spam text
 
@@ -168,4 +181,4 @@ def predict_spam(model, sentence):
 
 # predict_spam(mp, "Going for shopping to buy dress")
 
-joblib.dump(svm_model, 'svm_joblib.pkl')
+# joblib.dump(svm_model, 'svm_joblib.pkl')
