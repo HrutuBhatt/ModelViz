@@ -240,7 +240,7 @@ y_pred=(y_pred>0.5)
 
 # joblib.dump(model, 'lstm_joblib.pkl')
 #save model 
-model.save('lstm_model.keras')  
+# model.save('lstm_model.keras')  
 from sklearn.metrics import accuracy_score,confusion_matrix, recall_score, precision_score, f1_score
 score=accuracy_score(y_test,y_pred)
 precision=precision_score(y_test,y_pred)
@@ -259,7 +259,7 @@ metrics_lstm = {
 }
 
 # Save dependencies
-joblib.dump(metrics_lstm, "metrics_lstm.pkl")
+# joblib.dump(metrics_lstm, "metrics_lstm.pkl")
 
 cm=confusion_matrix(y_test,y_pred)
 fig=plt.figure(figsize=(12,8))
@@ -270,42 +270,45 @@ sns.heatmap(
 plt.title("Confusion Matrix")
 cm
 
-#The function take model and message as parameter
-# def classify_message(model,message):
+# The function take model and message as parameter
+def classify_message(model,message):
 
-#     #We will treat message as a paragraphs containing multiple sentences(lines)
-#     #we will extract individual lines
-#     for sentences in message:
-#         sentences=nltk.sent_tokenize(message)
+    #We will treat message as a paragraphs containing multiple sentences(lines)
+    #we will extract individual lines
+    for sentences in message:
+        sentences=nltk.sent_tokenize(message)
 
-#         #Iterate over individual sentences
-#         for sentence in sentences:
-#             #replace all special characters
-#             words=re.sub("[^a-zA-Z]"," ",sentence)
+        #Iterate over individual sentences
+        for sentence in sentences:
+            #replace all special characters
+            words=re.sub("[^a-zA-Z]"," ",sentence)
 
-#             #perform word tokenization of all non-english-stopwords
-#             if words not in set(stopwords.words('english')):
-#                 word=nltk.word_tokenize(words)
-#                 word=" ".join(word)
+            #perform word tokenization of all non-english-stopwords
+            if words not in set(stopwords.words('english')):
+                word=nltk.word_tokenize(words)
+                word=" ".join(word)
 
-#     #perform one_hot on tokenized word
-#     oneHot=[one_hot(word,n=vocab_size)]
+    #perform one_hot on tokenized word
+    oneHot=[one_hot(word,n=vocab_size)]
 
-#     #create an embedded document using pad_sequences
-#     #this can be fed to our model
-#     text=pad_sequences(oneHot,maxlen=sentence_len,padding="pre")
-#     #predict the text using model
-#     predict=model.predict(text)
+    #create an embedded document using pad_sequences
+    #this can be fed to our model
+    text=pad_sequences(oneHot,maxlen=sentence_len,padding="pre")
+    #predict the text using model
+    predict=model.predict(text)
 
-#     #if predict value is greater than 0.5 its a spam
-#     if predict>0.5:
-#         print("It is a spam")
-#     #else the message is not a spam
-#     else:
-#         print("It is not a spam")
+    #if predict value is greater than 0.5 its a spam
+    if predict>0.5:
+        print("It is a spam")
+    #else the message is not a spam
+    else:
+        print("It is not a spam")
 
 
+message1="I am having a bad day and I would like to have a break today"
+message2="Scam Alert! 3000$ debited from your account. click link to find out"
 
+classify_message(model,message2)
 # dependencies = {
 #     "vocab_size": vocab_size,
 #     "sentence_len": sentence_len,

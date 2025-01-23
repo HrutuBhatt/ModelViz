@@ -35,4 +35,36 @@
     background-color: #575757;
     border-radius: 5px;
   }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 35px;
+    left: 10px;
+    background-color: #333;
+    list-style: none;
+    padding: 12px;
+    margin: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
   
+  .dropdown-menu li {
+    margin: 5px 0;
+    width: 100px;
+  }
+  
+  .dropdown-link {
+    color: white;
+    text-decoration: none;
+    display: block;
+    border-radius: 5px;
+
+  }
+  
+  .dropdown-link:hover {
+    background-color: #6e6c6c;
+  }

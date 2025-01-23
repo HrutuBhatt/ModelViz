@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css'; 
 
 const Navbar = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () =>{
+    setDropdownOpen(!dropdownOpen)
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -19,9 +25,31 @@ const Navbar = () => {
           <li>
             <Link to="/analytics" className="navbar-link">Analytics</Link>
           </li>
+          <li className='dropdown'>
+            <span className='navbar-link dropdown-toggle' onClick={toggleDropdown}>
+              Visualize
+            </span>
+            {dropdownOpen && (
+              <ul className='dropdown-menu'>
+                <li>
+                  <Link to="/svm" className='dropdown-link'>SVM</Link>
+                </li>
+                <li>
+                  <Link to="/nb" className='dropdown-link'>Naive Bayes</Link>
+                </li>
+                <li>
+                  <Link to="/lstm" className='dropdown-link'>LSTM</Link>
+                </li>
+                <li>
+                  <Link to="/lr" className='dropdown-link'>Logistic Reg.</Link>
+                </li>
+              </ul>
+            )}
+          </li>
           <li>
             <Link to="/about" className="navbar-link">About</Link>
           </li>
+          
         </ul>
       </div>
     </nav>

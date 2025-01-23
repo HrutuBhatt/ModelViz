@@ -4,11 +4,12 @@ import joblib
 import re
 # from models.svm import predict_spam as predict_svm
 from methods.lstm_method import classify_message
-# from models.naive_bayes import predict_spam as predict_naive_bayes
 import os
-from models.vectorizer import vectorize_text, preprocess_text
+from models.vectorizer import vectorize_text, preprocess_text, explain_prediction
 from methods.nb_method import predict_spam_nb
 from methods.get_metrics import get_metrics
+from methods.preprocess import stemtext
+
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
@@ -25,6 +26,7 @@ def predict():
     
     preprocessed_text = preprocess_text(text)
     vectorized_text = vectorize_text(preprocessed_text)
+    result = explain_prediction(text)
     if not text:
         return jsonify({"error": "No text provided"}), 400
     
@@ -34,13 +36,13 @@ def predict():
     if model_name=='svm':
         prediction = svm_model.predict(vectorized_text)[0]
         print(prediction)
-        return jsonify({"prediction": "spam" if prediction == 1 else "ham"})
+        return jsonify({"prediction": "spam" if prediction == 1 else "ham", "result": result})
     elif model_name=='lstm':
-        result = classify_message(text)
-        return jsonify({"prediction": "ham" if result == 0 else "spam"})
+        prediction = classify_message(text)
+        return jsonify({"prediction": "ham" if prediction == 0 else "spam", "result": result})
     elif model_name=='nb':
-        result = predict_spam_nb(text)
-        return jsonify({"prediction": "ham" if result == 0 else "spam"})
+        prediction = predict_spam_nb(text)
+        return jsonify({"prediction": "ham" if prediction == 0 else "spam", "result": result})
 
     else:
         return jsonify({"error": "Model not supported"})
@@ -51,9 +53,23 @@ def predict():
 @app.route("/analytics", methods=["GET"])
 def analytics():
     metrics = get_metrics()
-    print(metrics)
+    # print(metrics)
     return jsonify(metrics)
 
+@app.route("/stemming", methods=["POST"])
+def stem():
+    data = request.json  # Get JSON data from the frontend
+    text = data.get('text')  # Extract the text to predict
+    stemfunc = data.get("stemmer")  # Extract the selected stemmer
+    output = stemtext(text, stemfunc)
+    return jsonify(output)
+
+# @app.route("/vectorize", methods=["POST"])
+# def vectorize():
+#     data = request.json  # Get JSON data from the frontend
+#     text = data.get('text')  # Extract the text to predict
+#     output = vectorize_text(text)
+#     return jsonify(output)
 
 
 if __name__ == "__main__":

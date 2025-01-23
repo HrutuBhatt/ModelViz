@@ -1,0 +1,109 @@
+/* Overall container styling */
+.container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 50px auto;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  /* Title styling */
+.container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+  
+  /* Textarea styling */
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dropdown styling */
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: #fff;
+  }
+  
+  /* Button styling */
+  button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:active {
+    background-color: #3e8e41;
+  }
+  
+  /* Result and highlighted text styling */
+  p {
+    margin-top: 15px;
+    font-size: 1rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    color: #4caf50;
+    margin-top: 20px;
+  }
+  
+  .highlighted-word {
+    background-color: #ffff00;
+    padding: 0 2px;
+    border-radius: 3px;
+    position: relative;
+  }
+  
+  /* Tooltip styling for importance */
+  .highlighted-word[title] {
+    position: relative;
+  }
+  
+  .highlighted-word[title]::after {
+    content: attr(title);
+    position: absolute;
+    top: -25px;
+    left: 0;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  
+  .highlighted-word[title]:hover::after {
+    opacity: 1;
+    z-index: 10;
+  }
+  

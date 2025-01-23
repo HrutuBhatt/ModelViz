@@ -47,7 +47,7 @@ const Analytics = () => {
     return(
         <div>
             <h1>Model Metrics Bar Graph</h1>
-                <div style={{  justifyContent:'center', display:'flex'}}>
+                <div style={{ }}>
                 {chartData ? (
                     <Bar
                         data={chartData}
@@ -58,8 +58,8 @@ const Analytics = () => {
                                 y: { beginAtZero: true },
                             },
                         }}
-                        width={700} // Chart width in pixels
-                        height={500}
+                        width={150} // Chart width in pixels
+                        height={50}
                     />
                 ) : (
                     <p>Loading...</p>
