@@ -5,6 +5,7 @@ import re
 from nltk.corpus import stopwords
 import joblib
 from tensorflow.keras.models import load_model
+# import pandas
 
 model = load_model('lstm_model.keras')
 
@@ -47,3 +48,4 @@ def classify_message(message):
     #else the message is not a spam
     else:
         return 0
+

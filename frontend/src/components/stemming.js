@@ -47,7 +47,7 @@ const Stemming = ({message, setMessage, stemmedText, setStemmedText})=>{
                 <option value="LS">Lancaster Stemmer</option>
                
             </select>
-            <button onClick={handleSubmit}>Stem</button>
+            <button className="btn-svm"  onClick={handleSubmit}>Stem</button>
             {result && <p>Result: {result}</p>}
         </div>
     )

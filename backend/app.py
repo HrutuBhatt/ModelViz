@@ -9,7 +9,7 @@ from models.vectorizer import vectorize_text, preprocess_text, explain_predictio
 from methods.nb_method import predict_spam_nb
 from methods.get_metrics import get_metrics
 from methods.preprocess import stemtext
-
+from sklearn.feature_extraction.text import TfidfVectorizer
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
@@ -64,13 +64,33 @@ def stem():
     output = stemtext(text, stemfunc)
     return jsonify(output)
 
-# @app.route("/vectorize", methods=["POST"])
-# def vectorize():
-#     data = request.json  # Get JSON data from the frontend
-#     text = data.get('text')  # Extract the text to predict
-#     output = vectorize_text(text)
-#     return jsonify(output)
+@app.route('/vectorize', methods=['POST'])
+def vectorize_text():
+    # Get text from the request body
+    data = request.json
+    sentences = data.get('sentences', [])
+    
+    # Initialize TF-IDF Vectorizer
+    vectorizer = TfidfVectorizer()
+    X = vectorizer.fit_transform(sentences)
+    
+    # Convert the TF-IDF matrix to a list of dictionaries for easier handling in React
+    tfidf_matrix = X.toarray()
+    words = vectorizer.get_feature_names_out()
+    
+    result = {
+        'words': words.tolist(),
+        'tfidf_values': tfidf_matrix.tolist(),
+        'sentences': sentences
+    }
+    
+    return jsonify(result)
 
+
+
+# @app.route('/embeddings', methods=['GET'])
+# def get_embeddings():
+#     return embedding_df.to_json(orient="records")
 
 if __name__ == "__main__":
     app.run(debug=True)

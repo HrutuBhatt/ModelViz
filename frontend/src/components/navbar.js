@@ -32,6 +32,9 @@ const Navbar = () => {
             {dropdownOpen && (
               <ul className='dropdown-menu'>
                 <li>
+                  <Link to="/undersample" className='dropdown-link'>Undersampling</Link>
+                </li>
+                <li>
                   <Link to="/svm" className='dropdown-link'>SVM</Link>
                 </li>
                 <li>
