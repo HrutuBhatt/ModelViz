@@ -5,7 +5,7 @@ const DetectSpam = () => {
   const [selectedModel, setSelectedModel] = useState('svm');
   const [result, setResult] = useState('');
   const [highlightedMessage, setHighlightedMessage] = useState('');
-
+  const [category, setCategory] = useState('');
   const handleSubmit = async () => {
     try {
       const response = await fetch('http://127.0.0.1:5000/predict', {
@@ -46,6 +46,25 @@ const DetectSpam = () => {
     }
   };
 
+  const checkCategory = async()=>{
+    try{
+      const response = await fetch('http://127.0.0.1:5000/category', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: message,
+        }),
+      });
+
+      const data = response.json();
+      setCategory(data);
+    }
+    catch(error){
+      setResult(`Error: ${error.message}`);
+    }
+  }
   return (
     <div className='container'>
       <h1>Spam Detector</h1>
@@ -79,6 +98,10 @@ const DetectSpam = () => {
         </div>
       )}
    
+    {/* to know category of spam text (using svm) */}
+    <p>Check category of your spam text: </p>
+    <button onClick={checkCategory}>Category</button>
+    <p>Spam text belongs to:<b>{category}</b></p>
     </div>
   );
 };

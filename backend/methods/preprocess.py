@@ -19,4 +19,3 @@ def stemtext(text, stemfunc):
     return text
         
 # def vectorizetext(text, vectfunc):
-

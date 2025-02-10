@@ -9,6 +9,7 @@ from models.vectorizer import vectorize_text, preprocess_text, explain_predictio
 from methods.nb_method import predict_spam_nb
 from methods.get_metrics import get_metrics
 from methods.preprocess import stemtext
+from methods.categorize import get_category
 from sklearn.feature_extraction.text import TfidfVectorizer
 # Initialize Flask app
 app = Flask(__name__)
@@ -23,7 +24,7 @@ def predict():
     data = request.json  # Get JSON data from the frontend
     text = data.get('text')  # Extract the text to predict
     model_name = data.get("model")  # Extract the selected model
-    
+    print(text, model_name)
     preprocessed_text = preprocess_text(text)
     vectorized_text = vectorize_text(preprocessed_text)
     result = explain_prediction(text)
@@ -65,7 +66,7 @@ def stem():
     return jsonify(output)
 
 @app.route('/vectorize', methods=['POST'])
-def vectorize_text():
+def vectorize_text_view():
     # Get text from the request body
     data = request.json
     sentences = data.get('sentences', [])
@@ -86,6 +87,13 @@ def vectorize_text():
     
     return jsonify(result)
 
+
+@app.route('/category', methods=['POST'])
+def find_category():
+    data = request.json
+    text = data.get('text')
+    category = get_category(text)
+    return jsonify(category)
 
 
 # @app.route('/embeddings', methods=['GET'])
