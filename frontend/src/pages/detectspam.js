@@ -32,7 +32,7 @@ const DetectSpam = () => {
           // Wrap the word in a span with a tooltip for importance
           updatedMessage = updatedMessage.replace(
             regex,
-            `<span style="background-color: yellow; position: relative;" title="Importance: ${importance}">
+            `<span class="highlighted-word"  title="Importance: ${importance}">
               ${word} (${importance})
             </span>`
           );
@@ -66,6 +66,7 @@ const DetectSpam = () => {
     }
   }
   return (
+    <div className='main'>
     <div className='container'>
       <h1>Spam Detector</h1>
       <textarea
@@ -81,8 +82,8 @@ const DetectSpam = () => {
         <option value="svm">SVM</option>
         <option value="nb">Naive Bayes</option>
         <option value="lstm">LSTM</option>
-        <option value="lr">Logistic Regression</option>
-        <option value="bert">BERT</option>
+        <option value="svm">Logistic Regression</option>
+        <option value="hybrid">Hybrid</option>
         {/* Add more models here if needed */}
       </select>
       <br />
@@ -99,9 +100,10 @@ const DetectSpam = () => {
       )}
    
     {/* to know category of spam text (using svm) */}
-    <p>Check category of your spam text: </p>
+    <h3>Check category of your spam text: </h3>
     <button onClick={checkCategory}>Category</button>
     <p>Spam text belongs to:<b>{category}</b></p>
+    </div>
     </div>
   );
 };

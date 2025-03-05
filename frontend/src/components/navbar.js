@@ -25,6 +25,9 @@ const Navbar = () => {
           <li>
             <Link to="/analytics" className="navbar-link">Analytics</Link>
           </li>
+          {/* <li>
+            <Link to="/whatsapp" className="navbar-link">WhatsApp</Link>
+          </li> */}
           <li className='dropdown'>
             <span className='navbar-link dropdown-toggle' onClick={toggleDropdown}>
               Visualize
@@ -38,13 +41,10 @@ const Navbar = () => {
                   <Link to="/svm" className='dropdown-link'>SVM</Link>
                 </li>
                 <li>
-                  <Link to="/nb" className='dropdown-link'>Naive Bayes</Link>
+                  <Link to="/nn" className='dropdown-link'>Neural Network</Link>
                 </li>
                 <li>
                   <Link to="/lstm" className='dropdown-link'>LSTM</Link>
-                </li>
-                <li>
-                  <Link to="/lr" className='dropdown-link'>Logistic Reg.</Link>
                 </li>
               </ul>
             )}

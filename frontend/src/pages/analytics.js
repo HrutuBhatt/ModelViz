@@ -46,8 +46,8 @@ const Analytics = () => {
 
     return(
         <div>
-            <h1>Model Metrics Bar Graph</h1>
-                <div style={{ }}>
+            <h1 style={{alignItems: "center"}}>Model Metrics Bar Graph</h1>
+              
                 {chartData ? (
                     <Bar
                         data={chartData}
@@ -64,7 +64,7 @@ const Analytics = () => {
                 ) : (
                     <p>Loading...</p>
                 )}
-                </div>
+            
         </div>
     )
 }

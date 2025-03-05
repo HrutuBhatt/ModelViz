@@ -8,6 +8,7 @@ import Analytics from './pages/analytics';
 import SVM from './pages/svm_viz';
 import LSTM from './pages/lstm_viz';
 import Undersampling from './pages/undersampling';
+import NeuralNetwork from './pages/neuralnetwork';
 function App() {
   return (
     <>
@@ -19,7 +20,7 @@ function App() {
           <Route path="/detectspam" element={<DetectSpam />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/svm" element={<SVM />} />
-          <Route path="/nb" element={<Analytics />} />
+          <Route path="/nn" element={<NeuralNetwork />} />
           <Route path="/lstm" element={<LSTM />} />
           <Route path="/lr" element={<Analytics />} />
           <Route path="/undersample" element={<Undersampling />} />

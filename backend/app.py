@@ -11,10 +11,14 @@ from methods.get_metrics import get_metrics
 from methods.preprocess import stemtext
 from methods.categorize import get_category
 from sklearn.feature_extraction.text import TfidfVectorizer
+from models.neuralnetwork import train_nn
+from methods.ensemble import ensemble_predict
 # Initialize Flask app
 app = Flask(__name__)
+
 CORS(app)
 svm_model = joblib.load('./svm_joblib.pkl')
+lr_model = joblib.load('./logistic_regression.pkl')
 
 # Define the spam prediction route
 
@@ -38,13 +42,19 @@ def predict():
         prediction = svm_model.predict(vectorized_text)[0]
         print(prediction)
         return jsonify({"prediction": "spam" if prediction == 1 else "ham", "result": result})
+    elif model_name=='lr':
+        prediction = lr_model.predict(vectorized_text)[0]
+        print(prediction)
+        return jsonify({"prediction": "spam" if prediction == 1 else "ham", "result": result})
     elif model_name=='lstm':
         prediction = classify_message(text)
         return jsonify({"prediction": "ham" if prediction == 0 else "spam", "result": result})
     elif model_name=='nb':
         prediction = predict_spam_nb(text)
         return jsonify({"prediction": "ham" if prediction == 0 else "spam", "result": result})
-
+    elif model_name=='hybrid':
+        prediction = ensemble_predict(text)
+        return jsonify({"prediction": "ham" if prediction == 0 else "spam", "result": result})
     else:
         return jsonify({"error": "Model not supported"})
 
@@ -99,6 +109,17 @@ def find_category():
 # @app.route('/embeddings', methods=['GET'])
 # def get_embeddings():
 #     return embedding_df.to_json(orient="records")
+
+@app.route('/train', methods=["POST"])
+def train_model():
+    data = request.json
+    hidden_neurons = data.get("hidden_neurons", 64)
+    activation_function = data.get("activation_function", "relu")
+    epochs = data.get("epochs", 10)
+    learning_rate = data.get("learning_rate", 0.001)
+    accuracy = train_nn(hidden_neurons, activation_function, epochs, learning_rate)
+    return  jsonify({"message": "Model trained successfully", "accuracy": accuracy})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,7 +1,9 @@
 /* Navbar.css */
 .navbar {
-    background-color: #333;
+    /* background-color: #010179; */
     padding: 10px 20px;
+    font-weight: bolder;
+    font-size: larger;
   }
   
   .navbar-container {
@@ -11,8 +13,10 @@
   }
   
   .navbar-logo {
-    color: #fff;
-    font-size: 24px;
+    color: #5900ff;
+    font-size: 27px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bolder;
     text-decoration: none;
   }
   
@@ -24,16 +28,17 @@
   }
   
   .navbar-link {
-    color: #fff;
+    color: #5900ff;
     text-decoration: none;
     padding: 10px 15px;
     margin-left: 20px;
-    font-size: 18px;
+    font-size: 22px;
   }
   
   .navbar-link:hover {
-    background-color: #575757;
+    background-color: #6e64ff;
     border-radius: 5px;
+    color:white
   }
 
   .dropdown {
@@ -44,7 +49,7 @@
     position: absolute;
     top: 35px;
     left: 10px;
-    background-color: #333;
+    background-color: #ffffff;
     list-style: none;
     padding: 12px;
     margin: 0;
@@ -58,7 +63,7 @@
   }
   
   .dropdown-link {
-    color: white;
+    color: #8c4eff;
     text-decoration: none;
     display: block;
     border-radius: 5px;
@@ -66,5 +71,6 @@
   }
   
   .dropdown-link:hover {
-    background-color: #6e6c6c;
+    background-color: #cacaca;
+    color:#5900ff;
   }
