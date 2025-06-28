@@ -2,6 +2,8 @@
 
 Model Viz is an **AI-powered spam detection system** that uses **Ensemble Learning** to classify text messages as **Spam or Ham**.
 
+## Video Link 
+- [ModelViz](https://drive.google.com/file/d/1inZbaFzvl2ZYvTYi3BYIULA0Dm0EE6jG/view?usp=sharing)
 ---
 
 ## 🌟 Features
